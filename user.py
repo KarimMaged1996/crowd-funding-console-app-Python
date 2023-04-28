@@ -8,6 +8,7 @@ class User:
         self.email=email
         self.password=password
         self.phone=phone
+        self.logged=False
 
     def set_first_name(self,fName):
         if re.fullmatch("[a-zA-z]+",fName):
@@ -42,6 +43,13 @@ class User:
     def add_instance(self):
         if (self.first_name and self.last_name and self.email and self.password and self.phone):
             self.instances.append(self.__dict__)
+
+    def log_in(self,mail,password):
+        if mail == self.email and password == self.password:
+            self.logged = True
+
+    def log_out(self):
+        self.logged = False
     
     # to be able to print the user as dictionary for debugging
     def __str__(self):
