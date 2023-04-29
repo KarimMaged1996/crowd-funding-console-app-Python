@@ -2,15 +2,45 @@ import datetime
 import ast
 class Project:
     all_projects=[]
+    total_donations = 0
     target_accomplished = False
-    def __init__(self,title,details,target,start,end):
+    def __init__(self,title,details,target,start,end,owner):
         self.title=title
         self.details=details
         self.target=target
         self.start=start
         self.end=end
+        self.owner=owner
         
         self.all_projects.append(self)
+
+    def modify_title(self,user,new_title):
+        if user == self.owner:
+            self.title = new_title
+        else:
+            return False
+    def modify_details(self,user,new_details):
+        if user == self.owner:
+            self.details = new_details
+        else:
+            return False
+    def modify_target(self,user,new_target):
+        if user == self.owner:
+            self.target = new_target
+        else:
+            return False
+        
+    def modify_start(self,user,new_start):
+        if user == self.owner:
+            self.start = new_start
+        else:
+            return False
+    def modify_end(self,user,new_end):
+        if user == self.owner:
+            self.end = new_end
+        else:
+            return False
+        
     @classmethod
     def display_all_projects(cls):
         for proj in cls.all_projects:
@@ -22,9 +52,11 @@ class Project:
         if self.target != 0 and self.end > today:
             if donation < self.target:
                 self.target -= donation
+                self.total_donations += donation
             else:
                 self.target = 0
                 self.target_accomplished = True
+                self.total_donations += donation
         elif self.target == 0:
             print('the project already accomplished its target. Thank you for your support')
         elif self.end < today:
