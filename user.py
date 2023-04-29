@@ -1,5 +1,4 @@
 import re
-import ast
 
 class User:
     instances = []
@@ -82,6 +81,7 @@ class User:
 # user2.set_password('sarah123456')
 # user2.set_phone('01119030419')
 # user2.add_instance()
+# user2.set_first_name('salma')
 
 # User.save()
 
@@ -92,3 +92,5 @@ class User:
 # test2 = '{"name": "karim", "age": 27}'
 # test3 = dict(test2)
 # print(type(test3))
+
+
