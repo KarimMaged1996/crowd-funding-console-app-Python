@@ -1,4 +1,5 @@
 import datetime
+import ast
 class Project:
     all_projects=[]
     target_accomplished = False
@@ -28,16 +29,34 @@ class Project:
             print('the project already accomplished its target. Thank you for your support')
         elif self.end < today:
             print(f"{self.title} already closed, the end date was {self.end}") 
+    @classmethod
+    def save(cls):
+        projects = open('./projects.txt','w')
+        for proj in cls.all_projects:
+            projects.write(f"{{'title':'{proj.title}','details':'{proj.details}','target':{proj.target},'start':'{proj.start}','end':'{proj.end}'}}\n")
+        projects.close()
+    @classmethod
+    def load(cls):
+        projects = open ('./projects.txt','r')
+        for project in projects:
+            dict_project = ast.literal_eval(project)
+            start = dict_project['start'].split('-')
+            end = dict_project['end'].split('-')
+            cls(dict_project['title'],dict_project['details'],int(dict_project['target']),datetime.date(int(start[0]),int(start[1]),int(start[2])),datetime.date(int(end[0]),int(end[1]),int(end[2])))
+        projects.close()
 
     
-    
-
-
     def __str__(self):
         return f"{self.__dict__}"
 
-proj1 = Project('proj1', 'new proj', 100000, datetime.date.today(),datetime.date(2023,10,15))
-proj2 = Project('proj2', 'new proj2', 500000, datetime.date(2023,7,6),datetime.date(2023,12,1))
-proj3 = Project('proj3', 'new proj3', 250000, datetime.date(2024,5,5),datetime.date(2024,8,10))
+# proj1 = Project('proj1', 'new proj', 100000, datetime.date.today(),datetime.date(2023,10,15))
+# proj2 = Project('proj2', 'new proj2', 500000, datetime.date(2023,7,6),datetime.date(2023,12,1))
+# proj3 = Project('proj3', 'new proj3', 250000, datetime.date(2024,5,5),datetime.date(2024,8,10))
+# proj3.donate(5000)
 
-Project.display_all_projects()
+# Project.save()
+# Project.load()
+# print(Project.all_projects)
+
+
+
