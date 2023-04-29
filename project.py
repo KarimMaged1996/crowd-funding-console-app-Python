@@ -45,7 +45,17 @@ class Project:
     def display_all_projects(cls):
         for proj in cls.all_projects:
             if proj.target_accomplished == False:
-              print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\n")
+              print('-----------------------------------\n')
+              print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\nTotal Donations: {proj.total_donations}")
+              print('-----------------------------------\n')
+
+    @classmethod
+    def display_user_projects(cls,user):
+        for proj in cls.all_projects:
+            if proj.owner == user:
+              print('-----------------------------------\n')
+              print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\nTotal Donations: {proj.total_donations}")
+              print('-----------------------------------\n')
 
     def donate(self,donation):
         today = datetime.date.today()
