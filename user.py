@@ -1,4 +1,5 @@
 import re
+import ast
 
 class User:
     instances = []
@@ -54,16 +55,40 @@ class User:
     # to be able to print the user as dictionary for debugging
     def __str__(self):
         return f"{self.__dict__}"
+    
+    @classmethod
+    def save(cls):
+        users_file = open('./users.txt','a')
+        for user in cls.instances:
+            users_file.write(f"{user}\n")
+        users_file.close()
+
         
   
 # user1 = User()
-# print(user1)
-# print(User.instances)
+# # print(user1)
+# # print(User.instances)
 # user1.set_first_name('karim')
 # user1.set_last_name('maged')
 # user1.set_email('karim.maged2020@yahoo.com')
 # user1.set_password('karim123456')
 # user1.set_phone('01119030428')
 # user1.add_instance()
-# print(user1.instances)
 
+# user2 = User()
+# user2.set_first_name('sarah')
+# user2.set_last_name('maged')
+# user2.set_email('sarah.maged2020@yahoo.com')
+# user2.set_password('sarah123456')
+# user2.set_phone('01119030419')
+# user2.add_instance()
+
+# User.save()
+
+# test = open('./users.txt','r')
+# for line in test:
+#     print(type(line))
+
+# test2 = '{"name": "karim", "age": 27}'
+# test3 = dict(test2)
+# print(type(test3))
