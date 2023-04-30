@@ -1,5 +1,82 @@
 import user, project, re, ast, datetime
 
+def modify_proj(project,logged_user):
+    while True:
+        print('1-Change project title')
+        print('2-Change project details')
+        print('3-change project target')
+        print('4-change start date')
+        print('5-change end date')
+        print('6-Exit')
+        choice = input()
+        #01 change title
+        if choice == '1':
+            while True:
+                title = input ('please enter the new title\n')
+                if title != '':
+                    break
+            if project.modify_title(logged_user,title) == False:
+                print('This Project is not yours to modify\n')
+            else:
+                project.modify_title(logged_user,title)
+                break
+        #02 change details
+        elif choice == '2':
+            while True:
+                details = input ('please enter the new details\n')
+                if details != '':
+                    break
+            if project.modify_details(logged_user,details) == False:
+                 print('This Project is not yours to modify\n')
+            else:
+                project.modify_details(logged_user,details)
+                break
+        #03 change target
+        elif choice == '3':
+            while True:
+                target = input ('please enter the new target\n')
+                if re.fullmatch('[0-9]+',target):
+                    break
+            if project.modify_target(logged_user,target) == False:
+                print('This Project is not yours to modify')
+            else:
+                project.modify_target(logged_user,target)
+                break
+        #04 change start date
+        elif choice == '4':
+            while True:
+                start = input ('please enter the new date eg: 2023,5,6\n')
+                if start != '':
+                    break
+            start_arr = start.split(',')
+            start_date = datetime.date(int(start_arr[0]),int(start_arr[1]),int(start_arr[2])) 
+            if project.modify_start(logged_user,start_date) == False:
+                print('This Project is not yours to modify')
+            else:
+                project.modify_start(logged_user,start_date)
+                break
+        #05 change end date
+        elif choice == '5':
+            while True:
+                end = input ('please enter the new date eg: 2023,5,6\n')
+                if end != '':
+                    break
+            end_arr = end.split(',')
+            end_date = datetime.date(int(end_arr[0]),int(end_arr[1]),int(end_arr[2])) 
+            if project.modify_end(logged_user,end_date) == False:
+                print('This Project is not yours to modify')
+            else:
+                project.modify_end(logged_user,end_date)
+                break
+        #06 exit
+        elif choice == '6':
+            break
+
+        else:
+            print ('This input is invalid please choose from the menu')
+
+
+
 def logged(logged_user):
     project.Project.load()
     # print(project.Project.all_projects)
@@ -54,7 +131,17 @@ def logged(logged_user):
             project.Project.display_user_projects(logged_user)
         # modify your projects
         elif choice == '3':
-            pass
+            proj = input ('please type the name of the project you want to modify\n')
+            for one in project.Project.all_projects:
+                if one.title == proj:
+                    current_proj = one
+                    modify_proj(current_proj,logged_user)
+                    project.Project.save()
+                    print(f"{proj} was modified successfully\n")
+                    break
+                
+            else:
+                print("this project doesn't exist")
         # see all available projects
         elif choice == '4':
             project.Project.all_projects = []

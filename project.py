@@ -3,7 +3,6 @@ import ast
 import user
 class Project:
     all_projects=[]
-    total_donations = 0
     def __init__(self,title,details,target,start,end,owner):
         self.title=title
         self.details=details
@@ -54,7 +53,7 @@ class Project:
         for proj in cls.all_projects:
             if proj.owner == user.__dict__:
               print('-----------------------------------\n')
-              print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\nTotal Donations: {proj.total_donations}")
+              print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\nTarget: {proj.target}")
               print('-----------------------------------\n')
 
     def donate(self,donation):
