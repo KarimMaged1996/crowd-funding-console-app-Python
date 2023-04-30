@@ -7,7 +7,8 @@ def modify_proj(project,logged_user):
         print('3-change project target')
         print('4-change start date')
         print('5-change end date')
-        print('6-Exit')
+        print ('6-Delete a Project')
+        print('7-Exit')
         choice = input()
         #01 change title
         if choice == '1':
@@ -68,8 +69,15 @@ def modify_proj(project,logged_user):
             else:
                 project.modify_end(logged_user,end_date)
                 break
-        #06 exit
+        #06 delete project
         elif choice == '6':
+           if project.del_project(logged_user,project.title) == False:
+               print('This Project is not yours to modify')
+           else:
+               project.del_project(logged_user,project.title)
+               break
+        #07 exit
+        elif choice == '7':
             break
 
         else:

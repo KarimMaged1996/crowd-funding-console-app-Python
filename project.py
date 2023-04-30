@@ -39,6 +39,13 @@ class Project:
             self.end = new_end
         else:
             return False
+    def del_project(self,user,title):
+        if user.__dict__ == self.owner:
+            for proj in self.all_projects:
+                if proj.title == title:
+                    self.all_projects.remove(proj)
+        else:
+            return False
         
     @classmethod
     def display_all_projects(cls):
