@@ -16,28 +16,28 @@ class Project:
         self.all_projects.append(self)
 
     def modify_title(self,user,new_title):
-        if user == self.owner:
+        if user.__dict__ == self.owner:
             self.title = new_title
         else:
             return False
     def modify_details(self,user,new_details):
-        if user == self.owner:
+        if user.__dict__ == self.owner:
             self.details = new_details
         else:
             return False
     def modify_target(self,user,new_target):
-        if user == self.owner:
+        if user.__dict__ == self.owner:
             self.target = new_target
         else:
             return False
         
     def modify_start(self,user,new_start):
-        if user == self.owner:
+        if user.__dict__ == self.owner:
             self.start = new_start
         else:
             return False
     def modify_end(self,user,new_end):
-        if user == self.owner:
+        if user.__dict__ == self.owner:
             self.end = new_end
         else:
             return False
@@ -47,13 +47,13 @@ class Project:
         for proj in cls.all_projects:
             if proj.target_accomplished == False:
               print('-----------------------------------\n')
-              print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\nTotal Donations: {proj.total_donations}")
+              print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\nTotal Donations: {proj.total_donations}\nOwner: {proj.owner['email']}")
               print('-----------------------------------\n')
 
     @classmethod
     def display_user_projects(cls,user):
         for proj in cls.all_projects:
-            if proj.owner == user:
+            if proj.owner == user.__dict__:
               print('-----------------------------------\n')
               print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\nTotal Donations: {proj.total_donations}")
               print('-----------------------------------\n')
@@ -103,9 +103,9 @@ class Project:
 
 
 
-# user1 = user.User()
-# # print(user1)
-# # print(User.instances)
+user1 = user.User()
+# print(user1)
+# print(User.instances)
 # user1.set_first_name('karim')
 # user1.set_last_name('maged')
 # user1.set_email('karim.maged2020@yahoo.com')
