@@ -53,7 +53,7 @@ class User:
     
     # to be able to print the user as dictionary for debugging
     def __str__(self):
-        return f"{self.__dict__}"
+        return f"{{'first_name':'{self.first_name}','last_name':'{self.last_name}','email':'{self.email}','password':'{self.password}','phone':'{self.phone}'}}"
     
     @classmethod
     def save(cls):
