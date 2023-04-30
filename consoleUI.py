@@ -2,7 +2,7 @@ import user, project, re, ast, datetime
 
 def logged(logged_user):
     project.Project.load()
-    print(project.Project.all_projects)
+    # print(project.Project.all_projects)
     while True:
         print(f"Welcome to your profile {logged_user.first_name} {logged_user.last_name}")
         print('here is the main menu')
@@ -66,9 +66,13 @@ def logged(logged_user):
             for one in project.Project.all_projects:
                 if one.title == proj:
                     current_proj = one
-                    donation = input ('how much do you want to donate\n')
+                    while True:
+                      donation = input ('how much do you want to donate\n')
+                      if re.fullmatch('[0-9]+',donation):
+                          break
                     current_proj.donate(int(donation))
                     project.Project.save()
+                    print(f"you donated to {proj} successfully\n")
                     break
                 
             else:
@@ -113,7 +117,7 @@ def login():
                 print('This Email does not Exist')
             
             if current_user:
-                print(current_user)
+                # print(current_user)
                 input_password = input (f"welcome {current_user.first_name} Please enter your password\n")
         
                 if input_password == current_user.password:
