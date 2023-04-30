@@ -4,7 +4,6 @@ import user
 class Project:
     all_projects=[]
     total_donations = 0
-    target_accomplished = False
     def __init__(self,title,details,target,start,end,owner):
         self.title=title
         self.details=details
@@ -45,9 +44,9 @@ class Project:
     @classmethod
     def display_all_projects(cls):
         for proj in cls.all_projects:
-            if proj.target_accomplished == False:
+            if proj.target != 0:
               print('-----------------------------------\n')
-              print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\nTotal Donations: {proj.total_donations}\nOwner: {proj.owner['email']}")
+              print(f"title: {proj.title}\nDetails: {proj.details}\nStart date: {proj.start}\nEnd date: {proj.end}\nTarget: {proj.target}\nOwner: {proj.owner['email']}")
               print('-----------------------------------\n')
 
     @classmethod
@@ -63,11 +62,8 @@ class Project:
         if self.target != 0 and self.end > today:
             if donation < self.target:
                 self.target -= donation
-                self.total_donations += donation
             else:
                 self.target = 0
-                self.target_accomplished = True
-                self.total_donations += donation
         elif self.target == 0:
             print('the project already accomplished its target. Thank you for your support')
         elif self.end < today:

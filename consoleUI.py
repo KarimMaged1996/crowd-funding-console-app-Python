@@ -2,6 +2,7 @@ import user, project, re, ast, datetime
 
 def logged(logged_user):
     project.Project.load()
+    print(project.Project.all_projects)
     while True:
         print(f"Welcome to your profile {logged_user.first_name} {logged_user.last_name}")
         print('here is the main menu')
@@ -61,10 +62,20 @@ def logged(logged_user):
             project.Project.display_all_projects()
         # Donate to a project
         elif choice == '5':
-            pass
+            proj = input ('please type the name of the project you want to donate to\n')
+            for one in project.Project.all_projects:
+                if one.title == proj:
+                    current_proj = one
+                    donation = input ('how much do you want to donate\n')
+                    current_proj.donate(int(donation))
+                    project.Project.save()
+                    break
+                
+            else:
+                print("this project doesn't exist")
         # Log out
         elif choice == '6':
-            break
+          break
         else:
              print ('the input you provided is invalid. please choose from the menu')
              continue
