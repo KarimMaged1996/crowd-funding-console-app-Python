@@ -1,5 +1,6 @@
 import datetime
 import ast
+import user
 class Project:
     all_projects=[]
     total_donations = 0
@@ -75,7 +76,7 @@ class Project:
     def save(cls):
         projects = open('./projects.txt','w')
         for proj in cls.all_projects:
-            projects.write(f"{{'title':'{proj.title}','details':'{proj.details}','target':{proj.target},'start':'{proj.start}','end':'{proj.end}'}}\n")
+            projects.write(f"{{'title':'{proj.title}','details':'{proj.details}','target':{proj.target},'start':'{proj.start}','end':'{proj.end}','owner':{proj.owner}}}\n")
         projects.close()
     @classmethod
     def load(cls):
@@ -84,7 +85,7 @@ class Project:
             dict_project = ast.literal_eval(project)
             start = dict_project['start'].split('-')
             end = dict_project['end'].split('-')
-            cls(dict_project['title'],dict_project['details'],int(dict_project['target']),datetime.date(int(start[0]),int(start[1]),int(start[2])),datetime.date(int(end[0]),int(end[1]),int(end[2])))
+            cls(dict_project['title'],dict_project['details'],int(dict_project['target']),datetime.date(int(start[0]),int(start[1]),int(start[2])),datetime.date(int(end[0]),int(end[1]),int(end[2])),dict_project['owner'])
         projects.close()
 
     
@@ -102,3 +103,33 @@ class Project:
 
 
 
+# user1 = user.User()
+# # print(user1)
+# # print(User.instances)
+# user1.set_first_name('karim')
+# user1.set_last_name('maged')
+# user1.set_email('karim.maged2020@yahoo.com')
+# user1.set_password('karim123456')
+# user1.set_phone('01119030428')
+# user1.add_instance()
+
+# user2 = user.User()
+# user2.set_first_name('sarah')
+# user2.set_last_name('maged')
+# user2.set_email('sarah.maged2020@yahoo.com')
+# user2.set_password('sarah123456')
+# user2.set_phone('01119030419')
+# user2.add_instance()
+# user2.set_first_name('salma')
+
+# proj1 = Project('proj1', 'new proj', 100000, datetime.date.today(),datetime.date(2023,10,15),user1)
+# proj2 = Project('proj2', 'new proj2', 500000, datetime.date(2023,7,6),datetime.date(2023,12,1),user1)
+# proj3 = Project('proj3', 'new proj3', 250000, datetime.date(2024,5,5),datetime.date(2024,8,10),user2)
+# proj3.donate(5000)
+# Project.save()
+# Project.load()
+# Project.display_all_projects()
+
+# test ="{'title':'proj1','details':'new proj','target':100000,'start':'2023-04-30','end':'2023-10-15','owner':{'first_name':'karim','last_name':'maged','email':'karim.maged2020@yahoo.com','password':'karim123456','phone':'01119030428'}}"
+# test2 = ast.literal_eval(test)
+# print(type(test2))
